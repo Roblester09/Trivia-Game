@@ -6,3 +6,19 @@
     background-position: center;
     background-image: url('../images/things-background.jpg');
 }
+
+#title {
+    display: none;
+}
+
+#play {
+    display: none;
+    margin-top: 200px;
+    padding: 10px 80px;
+    font-size: 25px;
+}
+
+.style {
+    font-size: 100px;
+    color: white;
+}
