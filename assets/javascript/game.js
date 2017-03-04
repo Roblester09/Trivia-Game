@@ -1,34 +1,165 @@
 $(document).ready(function(){
 
-    var strangeQuestions = [
-        questionOne = {
-            question: "What is my name?",
-            aOne: "Robert",
-            aTwo: "Lester",
-            aThree: "Sean",
-            aFour: "Nobody",
-        }
-    ]
+    var strangeQuestions = [{
+        question: "What is the name of the fictional town in which Stranger Things is set?",
+        choices: ["Elkton", "Berryville", "Hawkins", "Midletown"],
+        correct: "Hawkins",
+        image: "hallway.gif"
+    }];
 
-    $("#title").fadeIn(8000);
-    $("#play").fadeIn(8000);
+    var time = 20;
+    var correct = 0;
+    var incorrect = 0;
+    var current = 0;
+    var trivia = [];
+    var timer;
+    var display;
+    var i;
+    var randomizeArray;
+    var mute = false;
 
     var stranger_audio = new Audio("../assets/audio/stranger-audio.mp3");
     stranger_audio.play();
 
     $("#play").on("click", function(){
-        displayQuestion();
+        game.newGame();
     });
 
-    var question = $("game");
-    var questionTitle = $("h1");
+    //click to reset the game
+    $('#reset').click(function() {
+        game.reset();
+    });
 
-    function displayQuestion(){
-        $("#play").fadeOut(3000);
-        questionTitle.html("Hello").addClass("style");
-        question.append(questionTitle);
+    var game = {
+        //pick 10 questions from array
+		randomizeQuestions: function() {
+			randomizeArray = strangeQuestions.sort(function(a, b) {
+				return 0.5 - Math.random();
+			});
+			for (var i = 0; i < 10; i++) {
+				trivia.push(randomizeArray.pop());
+			}
+		},
+		//randomize order of choices
+		randomizeChoices: function() {
+			for (var i = 0; i < trivia.length; i++) {
+				var randomChoice = trivia[i].choices.sort(function(a, b) {
+					return 0.5 - Math.random()
+				});
+			}
+		},
+        newGame: function() {
+            $("#play").hide();
+            game.timerReset();
+            timer = setInterval(game.countdown, 1000);
+            game.displayQuestion();
+        },
+        countdown: function() {
+            if (time > 0) {
+                time--;
+                $("#timer").html(time);
+            } else {
+                incorrect++;
+                clearInterval(timer);
+                $("#timer").html("Out of time! Womp Womp...");
+                $("#question").html("The correct answer is");
+            }
+        },
+        timerReset: function() {
+			time = 20;
+			$("#timer").html(time);
+		},
+        //compare click to correct answer
+		check: function() {
+			if ($(this).text() == i.correct) {
+				game.correct();
+			} else {
+				game.incorrect();
+			}
+		},
+		//correct answer
+		correct: function() {
+			correct++;
+			clearInterval(timer);
+			$("#timer").html("Correct!");
+			$("#question").empty();
+			game.displayAnswer();
+		},
+		//incorrect answer
+		incorrect: function() {
+			incorrect++;
+			clearInterval(timer);
+			$("#timer").html("incorrect");
+			$("#question").html("The correct answer was " + i.correct);
+			game.displayAnswer();
+		},
+
+        displayQuestion: function() {
+			i = trivia[current];
+			current++;
+			$("#question").html(i.question);
+			$.each(i.choices, function(index, value) {
+				var answer = $("<button>")
+					.addClass("btn choice")
+					.html(i.choices[index])
+					.on("click", game.check);
+				$("#answer").append(answer);
+			});
+		},
+        //display the answer after user choice
+		displayAnswer: function() {
+			var picture = $("<img>")
+				.addClass("img-rounded image center-block")
+				.attr("src", "assets/images/" + i.images);
+			$("#answer").html(picture);
+			display = setTimeout(game.nextQuestion, 5000);
+		},
+		//move to next question/end game
+		nextQuestion: function() {
+			if (current !== trivia.length) {
+				time = 20;
+				$("#answer").empty();
+				game.new();
+			} else {
+				game.endGame();
+			}
+		},
+		//show stats on screen on game end
+		endGame: function() {
+			clearInterval(timer);
+			$("#timer").hide();
+			$("#question").html("Game Over");
+			$("#answer").html("Correct answers: " + correct + "<br>Incorrect Answers: " + incorrect);
+			var reset = $("<button>")
+				.addClass("btn gameButton")
+				.html("Play Again")
+				.attr("id", "reset");
+			$("#reset").html(reset);
+		},
+		//reset 
+		reset: function() {
+			time = 20;
+			correct = 0;
+			incorrect = 0;
+			current = 0;
+			timer = undefined;
+			choice = undefined;
+			display = undefined;
+			randomizeArray = undefined;
+			i = trivia[current];
+			strangeQuestions = strangeQuestions.concat(trivia);
+			trivia = [];
+		    $('#timer').show();
+	        $('#timer').empty();
+	        $('#question').empty();
+	        $('#answer').empty();
+	        $('#reset').empty();
+	        game.randomizeQuestions();
+	        game.randomizeChoices();
+	        game.new();
+		}
     }
 
+    game.randomizeQuestions();
+	game.randomizeChoices();
 })
-
-//ITC Benguit
