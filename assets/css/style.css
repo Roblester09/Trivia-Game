@@ -4,7 +4,7 @@
     min-height: 100vh;
     background-size: cover;
     background-position: center;
-    //background-image: url('../images/things-background.jpg');
+    background-image: url('../images/things-background.jpg');
 }
 
 #title {
@@ -16,12 +16,24 @@
     font-size: 25px;
 }
 
-.list {
-    display: block;
-    padding: 200px, 15px;
-}
-
-.style {
-    font-size: 100px;
+#timer {
+    font-size: 80px;
     color: white;
 }
+
+#question {
+    font-size: 30px;
+    padding: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.choice {
+    padding: 10px;
+    margin: 10px;
+    background-color: red;
+    color: white;
+    font-size: 30px;
+}
+
+

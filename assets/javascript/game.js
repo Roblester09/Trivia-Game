@@ -57,7 +57,7 @@ $(document).ready(function(){
         countdown: function() {
             if (time > 0) {
                 time--;
-                $("#timer").html(time);
+                $("#timer").html(time).addClass("timerFormat");
             } else {
                 incorrect++;
                 clearInterval(timer);
@@ -110,7 +110,7 @@ $(document).ready(function(){
 		displayAnswer: function() {
 			var picture = $("<img>")
 				.addClass("img-rounded image center-block")
-				.attr("src", "assets/images/" + i.images);
+				.attr("src", "../assets/images/" + i.images);
 			$("#answer").html(picture);
 			display = setTimeout(game.nextQuestion, 5000);
 		},
@@ -119,7 +119,7 @@ $(document).ready(function(){
 			if (current !== trivia.length) {
 				time = 20;
 				$("#answer").empty();
-				game.new();
+				game.newGame();
 			} else {
 				game.endGame();
 			}
