@@ -154,8 +154,8 @@ $(document).ready(function(){
     var randomizeArray;
     var mute = false;
 
-	$("#title").fadeIn(3000);
-	$("#play").fadeIn(3000);
+	$("#title").fadeIn(8000);
+	$("#play").fadeIn(8000);
 
     var stranger_audio = new Audio("../assets/audio/stranger-audio.mp3");
     stranger_audio.play();
