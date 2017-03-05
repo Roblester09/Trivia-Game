@@ -17,7 +17,7 @@
 }
 
 #timer {
-    font-size: 80px;
+    font-size: 50px;
     color: white;
 }
 
@@ -29,11 +29,9 @@
 }
 
 .choice {
-    padding: 10px;
+    width: 100%;
     margin: 10px;
-    background-color: red;
-    color: white;
-    font-size: 30px;
+    font-size: 15px;
 }
 
 

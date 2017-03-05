@@ -8,18 +8,25 @@
 </head>
 <body>
     <div class="container">
-        <div class="row text-center">
-            <div id="title" class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <div id="timer" class="text-center"></div>
+            </div>
+            <div id="title" class="col-md-6 text-center">
                 <img src="assets/images/strange-logo-1.png" alt="Stranger Things Logo">
             </div>
+            <div class="col-md-3"></div>
         </div>
         <div class="row text-center">
-            <div id="game" class="col-md-3">
-                <button id="play" class="btn btn-danger">Play</button>
+            <div id="game" class="col-md-12">
+                <button id="play" class="btn btn-danger text-center">Play</button>
                 <div class="quizContainer">
-                    <div id="timer"></div>
                     <div id="question"></div>
-                    <div id="answer"></div>
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2 text-center" id="answer"></div>
+                    <div class="col-md-5"></div>
+                </div>
                     <div id="reset"></div>
                 </div>
             </div>

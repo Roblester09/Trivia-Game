@@ -5,6 +5,18 @@ $(document).ready(function(){
         choices: ["Elkton", "Berryville", "Hawkins", "Midletown"],
         correct: "Hawkins",
         image: "hallway.gif"
+    },
+	{
+        question: "Who said - I've told you a million times, my teeth are coming in. It's called cleidocranial dysplasia.",
+        choices: ["Dustin Henderson", "Joyce Byers", "Mike Wheeler", "Eleven"],
+        correct: "Dustin Henderson",
+        image: "hallway.gif"
+    },
+	{
+        question: "Which of the below is NOT the name of a member of the Hawkins police department?",
+        choices: ["Florence", "Powell", "Callahan", "Brenner"],
+        correct: "",
+        image: "hallway.gif"
     }];
 
     var time = 20;
@@ -36,7 +48,7 @@ $(document).ready(function(){
 			randomizeArray = strangeQuestions.sort(function(a, b) {
 				return 0.5 - Math.random();
 			});
-			for (var i = 0; i < 10; i++) {
+			for (var i = 0; i < 3; i++) {
 				trivia.push(randomizeArray.pop());
 			}
 		},
@@ -61,8 +73,8 @@ $(document).ready(function(){
             } else {
                 incorrect++;
                 clearInterval(timer);
-                $("#timer").html("Out of time! Womp Womp...");
                 $("#question").html("The correct answer is");
+				display = setTimeout(game.nextQuestion, 5000);
             }
         },
         timerReset: function() {
@@ -100,7 +112,7 @@ $(document).ready(function(){
 			$("#question").html(i.question);
 			$.each(i.choices, function(index, value) {
 				var answer = $("<button>")
-					.addClass("btn choice")
+					.addClass("btn choice btn-danger")
 					.html(i.choices[index])
 					.on("click", game.check);
 				$("#answer").append(answer);
@@ -116,12 +128,12 @@ $(document).ready(function(){
 		},
 		//move to next question/end game
 		nextQuestion: function() {
-			if (current !== trivia.length) {
+			if (current === trivia.length) {
+				game.endGame();
+			} else {
 				time = 20;
 				$("#answer").empty();
 				game.newGame();
-			} else {
-				game.endGame();
 			}
 		},
 		//show stats on screen on game end
@@ -142,10 +154,6 @@ $(document).ready(function(){
 			correct = 0;
 			incorrect = 0;
 			current = 0;
-			timer = undefined;
-			choice = undefined;
-			display = undefined;
-			randomizeArray = undefined;
 			i = trivia[current];
 			strangeQuestions = strangeQuestions.concat(trivia);
 			trivia = [];
@@ -156,7 +164,7 @@ $(document).ready(function(){
 	        $('#reset').empty();
 	        game.randomizeQuestions();
 	        game.randomizeChoices();
-	        game.new();
+	        game.newGame();
 		}
     }
 
