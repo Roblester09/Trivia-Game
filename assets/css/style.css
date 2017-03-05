@@ -8,22 +8,25 @@
 }
 
 #title {
+    display: none;
 }
 
 #play {
+    display: none;
     margin-top: 200px;
     padding: 10px 80px;
     font-size: 25px;
 }
 
 #timer {
-    font-size: 50px;
+    margin-top: 10px;
+    font-size: 30px;
     color: white;
 }
 
 #question {
     font-size: 30px;
-    padding: 20px;
+    margin: 10px;
     font-weight: bold;
     color: white;
 }
@@ -32,6 +35,11 @@
     width: 100%;
     margin: 10px;
     font-size: 15px;
+}
+
+.overFormat {
+    font-size: 30px;
+    color: white;
 }
 
 
