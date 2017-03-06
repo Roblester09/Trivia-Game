@@ -1,10 +1,11 @@
 $(document).ready(function(){
 
+	//Variable object defining all questions, choices, answers, and gifs
     var strangeQuestions = [{
         question: "What is the name of the fictional town in which Stranger Things is set?",
         choices: ["Elkton", "Berryville", "Hawkins", "Midletown"],
         correct: "Hawkins",
-        image: "hallway.gif"
+        image: "bathroom.gif"
     },
 	{
         question: "Who said - I've told you a million times, my teeth are coming in. It's called Cleidocranial Dysplasia.",
@@ -20,7 +21,7 @@ $(document).ready(function(){
     },
 	{
         question: "The mysterious research facility responsible for kidnapping Eleven and unleashing the monster poses as:",
-        choices: ["The Department of Health and Human Services", "The Department of Homeland Security", "The Department of Energy", "The Department of Defense"],
+        choices: ["Human Services", "Homeland Security", "The Department of Energy", "The Department of Defense"],
         correct: "The Department of Energy",
         image: "lab.gif"
     },
@@ -55,7 +56,7 @@ $(document).ready(function(){
         question: "Who raised Eleven and treated her as test subject?",
         choices: ["Martin Brenner", "Charles Xavier", "Bruce Banner", "Lex Luthor"],
         correct: "Martin Brenner",
-        image: ""
+        image: "power.gif"
     },{
         question: "Where does the Demogorgon originate from?",
         choices: ["Mount Everest", "Earth 2", "The Upside Down", "Asgard"],
@@ -131,12 +132,6 @@ $(document).ready(function(){
         image: "mental.gif"
     },
 	{
-        question: "At the end of the season, the boys are playing a Dungeon and Dragons game once more. They complain about there being loose ends when the game finishes. Which of the below is NOT one of the loose ends?",
-        choices: ["The lost knight", "The proud princess", "The weird flowers in the cave", "The injured monster"],
-        correct: "The injured monster",
-        image: "fight.gif"
-    },
-	{
         question: "Which of the below is Eleven's favorite food (that Chief Hopper leaves in the forest for her at the end of the show)?",
         choices: ["Snack Pack", "Hot Pockets", "Pop Tarts", "Eggo Waffles"],
         correct: "Eggo Waffles",
@@ -152,23 +147,27 @@ $(document).ready(function(){
     var display;
     var i;
     var randomizeArray;
-    var mute = false;
 
+	//Fade in the title and play button
 	$("#title").fadeIn(8000);
 	$("#play").fadeIn(8000);
 
+	//Play the audio
     var stranger_audio = new Audio("../assets/audio/stranger-audio.mp3");
     stranger_audio.play();
 
+	//Press Play to start the game and change the background
     $("#play").on("click", function(){
         game.newGame();
+		$(".container").addClass("background-play");
     });
 
-    //click to reset the game
+    //Press to reset the game
     $('#reset').click(function() {
         game.reset();
     });
 
+	//Define all functions to control the game
     var game = {
         //pick 10 questions from array
 		randomizeQuestions: function() {
@@ -187,12 +186,14 @@ $(document).ready(function(){
 				});
 			}
 		},
+		//Start a new game
         newGame: function() {
             $("#play").hide();
             game.timerReset();
             timer = setInterval(game.countdown, 1000);
             game.displayQuestion();
         },
+		//Start the timer. If timer is greater than zero then count down. If timer is zero then hide choices and display correct answer.
         countdown: function() {
             if (time > 0) {
                 time--;
@@ -205,6 +206,7 @@ $(document).ready(function(){
 				display = setTimeout(game.nextQuestion, 5000);
             }
         },
+		//Reset the timer
         timerReset: function() {
 			time = 20;
 			$("#timer").html(time);
@@ -233,7 +235,7 @@ $(document).ready(function(){
 			$("#question").html("The correct answer was " + i.correct);
 			game.displayAnswer();
 		},
-
+		//Pull the question and display it to the user
         displayQuestion: function() {
 			i = trivia[current];
 			current++;
@@ -246,7 +248,7 @@ $(document).ready(function(){
 				$("#answer").append(answer);
 			});
 		},
-        //display the answer after user choice
+        //display the Gif after user chooses the answer
 		displayAnswer: function() {
 			var picture = $("<img>")
 				.addClass("img-rounded image center-block")
@@ -264,7 +266,7 @@ $(document).ready(function(){
 				game.newGame();
 			}
 		},
-		//show stats on screen on game end
+		//show stats on screen on game end and give the user the option to play again
 		endGame: function() {
 			clearInterval(timer);
 			$("#timer").hide();
@@ -276,26 +278,13 @@ $(document).ready(function(){
 				.on("click", game.reset);
 			$("#reset").html(reset);
 		},
-		//reset 
+		//Press play again to reload the page
 		reset: function() {
-			time = 20;
-			correct = 0;
-			incorrect = 0;
-			current = 0;
-			i = trivia[current];
-			strangeQuestions = strangeQuestions.concat(trivia);
-			trivia = [];
-		    $('#timer').show();
-	        $('#timer').empty();
-	        $('#question').empty();
-	        $('#answer').empty();
-	        $('#reset').empty();
-	        game.randomizeQuestions();
-	        game.randomizeChoices();
-	        game.newGame();
+			window.location.reload(true);
 		}
     }
-
+	//Run the random generator to gather ten questions
     game.randomizeQuestions();
+	//Run the random generator to display choices in a different order
 	game.randomizeChoices();
 })

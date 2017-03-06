@@ -4,7 +4,11 @@
     min-height: 100vh;
     background-size: cover;
     background-position: center;
-    background-image: url('../images/things-background.jpg');
+    background-image: url('../images/things-background-1.jpg');
+}
+
+.background-play {
+    background-image: url('../images/things-background-3.jpg');
 }
 
 #title {
@@ -12,6 +16,7 @@
 }
 
 #play {
+    font-family: 'Orbitron', sans-serif;
     display: none;
     margin-top: 200px;
     padding: 10px 80px;
@@ -25,6 +30,7 @@
 }
 
 #question {
+    font-family: 'Bungee Shade', cursive;
     font-size: 30px;
     margin: 10px;
     font-weight: bold;
@@ -32,14 +38,23 @@
 }
 
 .choice {
-    width: 100%;
+    font-family: 'Orbitron', sans-serif;
+    width: 50%;
     margin: 10px;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .overFormat {
     font-size: 20px;
     color: white;
 }
+
+font-family: 'VT323', monospace;
+font-family: 'Orbitron', sans-serif;
+font-family: 'Press Start 2P', cursive;
+font-family: 'Bungee Shade', cursive;
+font-family: 'Frijole', cursive;
+font-family: 'Creepster', cursive;
+font-family: 'Bungee Outline', cursive;
 
 
